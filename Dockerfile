@@ -8,7 +8,12 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# --- SPEED UP FIX ---
+# Install the lightweight CPU-only version of PyTorch first.
+# This saves about 2GB of download size and prevents memory crashes.
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Now install the rest (Streamlit, etc.)
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Create a non-root user and switch to it (Security Best Practice)
@@ -27,4 +32,6 @@ COPY --chown=user . $HOME/app
 EXPOSE 7860
 
 # Run the application on port 7860
-CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
+# CRITICAL FIX: We added --server.enableCORS=false and --server.enableXsrfProtection=false 
+# This fixes the "403 Forbidden" / "AxiosError" on Hugging Face
+CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false"]
