@@ -2,6 +2,8 @@
 
 A multimodal AI tool that allows users to search for specific events or scenes inside a video using natural language queries (e.g., "A red car turning left" or "Someone laughing"). It leverages OpenAI's CLIP model to understand the semantic relationship between video frames and text, enabling zero-shot search capabilities without manual tagging.
 
+Live Link :- https://huggingface.co/spaces/AbhiRajBajpai123/semantic-video-search
+
 🏗️ System Architecture
 
 The system follows a modular pipeline approach, processing video data into vector embeddings and performing similarity searches in real-time.
