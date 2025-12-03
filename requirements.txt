@@ -1,0 +1,7 @@
+streamlit
+sentence-transformers
+opencv-python-headless
+pillow
+torch
+numpy
+protobuf
